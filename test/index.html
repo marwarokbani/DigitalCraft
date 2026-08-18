@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دعوة زفاف — أشرف & ضحى</title>
+    <meta name="description" content="تتشرف عائلة بسباس وعائلة الركباني بدعوتكم لحضور حفل زفاف نجليهما أشرف وضحى ومشاركتنا فرحتنا.">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="دعوة زفاف — أشرف & ضحى">
+    <meta property="og:description" content="تتشرف عائلة بسباس وعائلة الركباني بدعوتكم لحضور حفل زفاف نجليهما أشرف وضحى ومشاركتنا فرحتنا.">
+    <meta property="og:image" content="https://assets.invitation-farhetna.tn/thumbnail/thumbnail-ar/thumbnail-invi-special-brown.webp">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Aref+Ruqaa:wght@400;700&family=Cairo:wght@300;400;600;700;800&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="index.css">
+</head>
+<body class="bg-beige text-cocoa font-tajawal antialiased overflow-hidden">
+
+    <!-- Ambient Floating Sparkles Canvas -->
+    <canvas id="ambient-canvas" class="fixed inset-0 pointer-events-none z-40"></canvas>
+
+    <!-- Music Player Object (Local music.mp3 first, falls back to Arabic Wedding Instrumental) -->
+    <audio id="bg-music" loop preload="auto">
+        <source src="music.mp3" type="audio/mpeg">
+        <source src="https://assets.invitation-farhetna.tn/music/adam-ya-helou.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Floating Audio Control Button -->
+    <button id="music-toggle" class="fixed bottom-6 right-6 z-50 bg-pink text-cocoa w-14 h-14 rounded-full shadow-lg flex items-center justify-center border-2 border-rose-gold cursor-pointer transition-transform duration-300 hover:scale-115 focus:outline-none hidden" aria-label="تشغيل/إيقاف الموسيقى">
+        <!-- Play / Pause Icon -->
+        <svg id="music-icon-play" class="w-6 h-6 hidden" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M8 5v14l11-7z"/>
+        </svg>
+        <svg id="music-icon-pause" class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+        </svg>
+        <!-- Floating Visual Equalizer Bars -->
+        <div id="equalizer" class="absolute bottom-2 flex items-end space-x-0.5 justify-center w-full h-3">
+            <span class="bar bg-cocoa w-0.5 h-full animate-bar1"></span>
+            <span class="bar bg-cocoa w-0.5 h-3/4 animate-bar2"></span>
+            <span class="bar bg-cocoa w-0.5 h-1/2 animate-bar3"></span>
+        </div>
+    </button>
+
+    <!-- 1. LUXURIOUS DIGITAL ENVELOPE OVERLAY (Using high-quality page 1 image cover) -->
+    <div id="envelope-overlay" class="fixed inset-0 z-50 flex items-center justify-center bg-envelope-beige transition-all duration-1000">
+        <!-- Subtle pulsing gold ripple exactly over the image's gold wax seal -->
+        <button id="open-btn" class="absolute rounded-full flex items-center justify-center cursor-pointer z-30" style="top: 53.5%; left: 50%; transform: translate(-50%, -50%); width: 80px; height: 80px; background: transparent; border: none; outline: none;" aria-label="افتح الدعوة">
+            <span class="absolute inset-0 rounded-full border-2 border-rose-gold animate-ping opacity-75 pointer-events-none"></span>
+            <span class="absolute w-5 h-5 rounded-full bg-rose-gold/25 border border-rose-gold/50 pointer-events-none"></span>
+        </button>
+    </div>
+
+    <!-- MAIN INVITATION CONTENT (Revealed and zoomed in after envelope opens) -->
+    <main id="main-invitation" class="relative w-full min-h-screen overflow-y-auto hidden opacity-0 transition-all duration-1000">
+        
+        <!-- Background decorative fade -->
+        <div class="fixed top-0 left-0 right-0 h-16 bg-gradient-to-b from-beige to-transparent pointer-events-none z-30"></div>
+
+        <!-- MAIN CONTAINER WITH RESPONSIVE PERFECT DOUBLE BORDER FRAME -->
+        <div class="max-w-2xl mx-auto px-4 py-8 sm:py-12 relative min-h-screen flex flex-col justify-between">
+            
+            <!-- Elegant Double Border Frame -->
+            <div class="border-frame-outer absolute inset-3 border border-rose-gold/35 rounded-2xl pointer-events-none z-20"></div>
+            <div class="border-frame-inner absolute inset-5 border border-dashed border-rose-gold/25 rounded-xl pointer-events-none z-20"></div>
+
+            <!-- Subtle Gold Corner Ornaments (No overlap, tiny and clean) -->
+            <div class="absolute top-6 right-6 w-6 h-6 border-t border-r border-rose-gold/60 pointer-events-none z-20"></div>
+            <div class="absolute top-6 left-6 w-6 h-6 border-t border-l border-rose-gold/60 pointer-events-none z-20"></div>
+            <div class="absolute bottom-6 right-6 w-6 h-6 border-b border-r border-rose-gold/60 pointer-events-none z-20"></div>
+            <div class="absolute bottom-6 left-6 w-6 h-6 border-b border-l border-rose-gold/60 pointer-events-none z-20"></div>
+
+            <!-- HERO SECTION (Basmala & Quranic Verse) -->
+            <section class="flex flex-col justify-center items-center text-center px-6 pt-12 pb-6 scroll-reveal z-10">
+                <!-- Bismillah calligraphic look -->
+                <div class="font-amiri text-2xl sm:text-3xl text-cocoa mb-6 tracking-wide select-none">
+                    بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
+                </div>
+
+                <!-- Verse -->
+                <blockquote class="font-amiri text-base sm:text-lg text-cocoa/90 max-w-md italic leading-relaxed mb-6 px-4">
+                    "وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً ۚ إِنَّ فِي ذَٰلِكَ لَآيَاتٍ لِّقَوْمٍ يَتَفَكَّرُونَ"
+                    <span class="block text-xs text-rose-gold mt-2 font-tajawal not-italic">— سورة الروم، الآية 21</span>
+                </blockquote>
+
+                <!-- Floral Line Divider -->
+                <div class="flex items-center justify-center space-x-2 space-x-reverse w-1/3 mb-8">
+                    <div class="h-px bg-rose-gold/45 flex-grow"></div>
+                    <span class="text-rose-gold text-sm">✿</span>
+                    <div class="h-px bg-rose-gold/45 flex-grow"></div>
+                </div>
+
+                <!-- Welcome Invitation Text -->
+                <p class="font-tajawal text-sm sm:text-base text-cocoa/85 max-w-lg mb-8 leading-relaxed px-2">
+                    تتشرف <strong class="text-cocoa font-bold">عائلة بسباس</strong> و <strong class="text-cocoa font-bold">عائلة الركباني</strong> بدعوتكم لحضور حفل زفاف نجليهما ومشاركتنا فرحتنا بهذه الليلة المباركة.
+                </p>
+
+                <!-- Couple Names Large Calligraphy style -->
+                <div class="my-4 animate-pulse-slow">
+                    <span class="font-aref text-5xl sm:text-6xl text-cocoa block leading-none">أشرف</span>
+                    <span class="font-aref text-2xl text-rose-gold block my-2">&</span>
+                    <span class="font-aref text-5xl sm:text-6xl text-cocoa block leading-none">ضحى</span>
+                </div>
+            </section>
+
+            <!-- COUNTDOWN TIMER SECTION -->
+            <section class="py-6 flex flex-col items-center justify-center text-center px-6 scroll-reveal z-10">
+                <div id="countdown" class="flex flex-row-reverse justify-center gap-3 sm:gap-4 w-full max-w-sm">
+                    <!-- Days Card -->
+                    <div class="countdown-card bg-white border border-rose-gold/15 shadow-sm rounded-xl p-3 w-16 sm:w-20 aspect-square flex flex-col justify-center items-center">
+                        <span id="days" class="text-xl sm:text-2xl font-bold text-cocoa">00</span>
+                        <span class="text-[9px] sm:text-xs text-cocoa/60 font-medium mt-0.5">يوم</span>
+                    </div>
+                    <!-- Hours Card -->
+                    <div class="countdown-card bg-white border border-rose-gold/15 shadow-sm rounded-xl p-3 w-16 sm:w-20 aspect-square flex flex-col justify-center items-center">
+                        <span id="hours" class="text-xl sm:text-2xl font-bold text-cocoa">00</span>
+                        <span class="text-[9px] sm:text-xs text-cocoa/60 font-medium mt-0.5">ساعة</span>
+                    </div>
+                    <!-- Minutes Card -->
+                    <div class="countdown-card bg-white border border-rose-gold/15 shadow-sm rounded-xl p-3 w-16 sm:w-20 aspect-square flex flex-col justify-center items-center">
+                        <span id="minutes" class="text-xl sm:text-2xl font-bold text-cocoa">00</span>
+                        <span class="text-[9px] sm:text-xs text-cocoa/60 font-medium mt-0.5">دقيقة</span>
+                    </div>
+                    <!-- Seconds Card -->
+                    <div class="countdown-card bg-white border border-rose-gold/15 shadow-sm rounded-xl p-3 w-16 sm:w-20 aspect-square flex flex-col justify-center items-center">
+                        <span id="seconds" class="text-xl sm:text-2xl font-bold text-cocoa">00</span>
+                        <span class="text-[9px] sm:text-xs text-cocoa/60 font-medium mt-0.5">ثانية</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- WEDDING DAYS DETAILS (عقد القران، الحنة، السلامية، الزفاف) -->
+            <section class="py-12 px-6 scroll-reveal z-10">
+                <div class="text-center mb-10">
+                    <span class="text-rose-gold text-sm block font-aref mb-1">دعوة وتفاصيل الأيام المباركة</span>
+                    <h2 class="font-aref text-2xl sm:text-3xl text-cocoa">برنامج أيام الفرح</h2>
+                    <div class="h-0.5 w-12 bg-rose-gold mx-auto mt-2.5"></div>
+                </div>
+
+                <!-- Schedule Card Grid -->
+                <div class="space-y-4">
+                    
+                    <!-- Day 1: عقد القران -->
+                    <div class="schedule-card bg-white/70 p-5 rounded-2xl border border-rose-gold/10 shadow-sm backdrop-blur-sm transition-all duration-300 hover:translate-y-[-2px] flex items-start space-x-4 space-x-reverse">
+                        <div class="w-11 h-11 bg-pink/15 rounded-xl border border-rose-gold/25 flex items-center justify-center shrink-0">
+                            <svg class="w-5 h-5 text-cocoa" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125"/>
+                            </svg>
+                        </div>
+                        <div class="flex-grow">
+                            <div class="flex justify-between items-center mb-1">
+                                <h3 class="font-bold text-base text-cocoa">عقد القران المبارك</h3>
+                                <span class="text-[10px] bg-rose-gold/15 text-cocoa px-2 py-0.5 rounded-full font-semibold">14 أكتوبر</span>
+                            </div>
+                            <p class="text-xs sm:text-sm text-cocoa/80 leading-relaxed font-light">
+                                سيتم عقد القران بمشيئة الله تعالى بجامع الحبيب بورقيبة بالمنستير.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Day 2: الحنة الكبيرة -->
+                    <div class="schedule-card bg-white/70 p-5 rounded-2xl border border-rose-gold/10 shadow-sm backdrop-blur-sm transition-all duration-300 hover:translate-y-[-2px] flex flex-col gap-3">
+                        <div class="flex items-start space-x-4 space-x-reverse">
+                            <div class="w-11 h-11 bg-pink/15 rounded-xl border border-rose-gold/25 flex items-center justify-center shrink-0">
+                                <svg class="w-5 h-5 text-cocoa" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v18M12 3C9 6 6 8.5 6 12s3 6 6 9M12 3c3 3 6 5.5 6 9s-3 6-6 9"/>
+                                </svg>
+                            </div>
+                            <div class="flex-grow">
+                                <div class="flex justify-between items-center mb-1">
+                                    <h3 class="font-bold text-base text-cocoa">الحنة الكبيرة</h3>
+                                    <span class="text-[10px] bg-rose-gold/15 text-cocoa px-2 py-0.5 rounded-full font-semibold">15 أكتوبر</span>
+                                </div>
+                                <p class="text-xs sm:text-sm text-cocoa/80 leading-relaxed font-light">
+                                    تقام الحنة الكبيرة بقاعة <strong class="text-cocoa font-bold">Spring Land 1</strong> بالمنستير، على الساعة التاسعة ليلاً (21:00).
+                                </p>
+                            </div>
+                        </div>
+                        <!-- Navigation maps button -->
+                        <div class="pr-15">
+                            <a href="https://maps.google.com/?q=Spring+Land+Monastir" target="_blank" class="inline-flex items-center justify-center bg-pink hover:bg-pink-dark text-cocoa transition-colors text-xs font-semibold py-2 px-4 rounded-lg shadow-sm border border-rose-gold/30">
+                                <svg class="w-3.5 h-3.5 ml-1.5 text-cocoa" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                </svg>
+                     Spring Land 1
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Day 3: السلامية -->
+                    <div class="schedule-card bg-white/70 p-5 rounded-2xl border border-rose-gold/10 shadow-sm backdrop-blur-sm transition-all duration-300 hover:translate-y-[-2px] flex items-start space-x-4 space-x-reverse">
+                        <div class="w-11 h-11 bg-pink/15 rounded-xl border border-rose-gold/25 flex items-center justify-center shrink-0">
+                            <svg class="w-5 h-5 text-cocoa" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 19V6l12-3v13M9 10l12-3M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2z"/>
+                            </svg>
+                        </div>
+                        <div class="flex-grow">
+                            <div class="flex justify-between items-center mb-1">
+                                <h3 class="font-bold text-base text-cocoa">حفل السلامية</h3>
+                                <span class="text-[10px] bg-rose-gold/15 text-cocoa px-2 py-0.5 rounded-full font-semibold">16 أكتوبر</span>
+                            </div>
+                            <p class="text-xs sm:text-sm text-cocoa/80 leading-relaxed font-light">
+                                يقام حفل السلامية بمشيئة الله تعالى في منزل العائلة الكائن بسقانص خلف عزيزة.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Day 4: الزفاف -->
+                    <div class="schedule-card bg-white/70 p-5 rounded-2xl border border-rose-gold/10 shadow-sm backdrop-blur-sm transition-all duration-300 hover:translate-y-[-2px] flex items-start space-x-4 space-x-reverse">
+                        <div class="w-11 h-11 bg-pink/15 rounded-xl border border-rose-gold/25 flex items-center justify-center shrink-0">
+                            <svg class="w-5 h-5 text-cocoa" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                <circle cx="8" cy="12" r="5"/>
+                                <circle cx="16" cy="12" r="5"/>
+                            </svg>
+                        </div>
+                        <div class="flex-grow">
+                            <div class="flex justify-between items-center mb-1">
+                                <h3 class="font-bold text-base text-cocoa">الزفاف</h3>
+                                <span class="text-[10px] bg-rose-gold/15 text-cocoa px-2 py-0.5 rounded-full font-semibold">18 أكتوبر</span>
+                            </div>
+                            <p class="text-xs sm:text-sm text-cocoa/80 leading-relaxed font-light">
+                                ليلة العمر وحفل الزفاف الفاخر ستقام بقاعة <strong class="text-cocoa font-bold">Spring Land 1</strong> بالمنستير. حضوركم بهجتنا!
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- DRESS CODE SECTION -->
+            <section class="py-8 px-6 scroll-reveal z-10">
+                <div class="bg-white/60 border border-rose-gold/15 rounded-2xl p-6 text-center shadow-sm backdrop-blur-sm">
+                    <div class="w-12 h-12 bg-pink/15 rounded-full flex items-center justify-center mx-auto mb-3 border border-rose-gold/35">
+                        <svg class="w-6 h-6 text-cocoa" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 21m3.688-5.096L13.5 21m-6.495-9.673a3 3 0 00-2.243 4.077L6.5 21h11l1.738-5.596a3 3 0 00-2.243-4.077L15 9.804V7.5a3 3 0 10-6 0v2.304l-1.688 1.623z"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-aref text-xl text-cocoa mb-1">قواعد اللباس</h3>
+                    <p class="text-[10px] text-rose-gold font-semibold mb-3 uppercase tracking-widest">Dress Code</p>
+                    <p class="text-xs sm:text-sm text-cocoa/80 leading-relaxed max-w-sm mx-auto font-light">
+                        الفائدة في جيتكم وفرحتكم معانا! لا يوجد قانون صارم للّباس، نود فقط رؤيتكم بأجمل حُلّة وألبسوا ما يريحكم ويسعدكم لتشاركونا الاحتفال!
+                    </p>
+                </div>
+            </section>
+
+            <!-- PHOTO GALLERY CAROUSEL (RTL, emoji-free, with custom mobile-optimized slide sizes and indicators) -->
+            <section class="py-12 px-6 scroll-reveal z-10">
+                <div class="text-center mb-6">
+                    <h2 class="font-aref text-2xl text-cocoa mb-1">معرض الصور</h2>
+                    <p class="text-[11px] text-cocoa/60 mb-6">لقطات وذكريات تجمعنا</p>
+                </div>
+
+                <div class="gallery-carousel-wrapper relative select-none">
+                    <!-- Left Arrow Button -->
+                    <button id="gallery-prev" class="cursor-pointer" aria-label="الصورة السابقة">
+                        <svg class="w-5 h-5 text-cocoa" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
+                        </svg>
+                    </button>
+
+                    <!-- Scrollable Track Container -->
+                    <div class="gallery-track-container relative">
+                        <div id="gallery-track" class="gallery-track" style="transform: translateX(0px);">
+                            <!-- Slide 1 -->
+                            <div class="gallery-slide">
+                                <img src="Dhouha/1704109279511.jpg" alt="لقطة للعروسين" class="pointer-events-none" onerror="this.parentElement.classList.add('img-missing')">
+                            </div>
+                            <!-- Slide 2 -->
+                            <div class="gallery-slide">
+                                <img src="Dhouha/1704109280175.jpg" alt="لقطة للعروسين" class="pointer-events-none" onerror="this.parentElement.classList.add('img-missing')">
+                            </div>
+                            <!-- Slide 3 -->
+                            <div class="gallery-slide">
+                                <img src="Dhouha/1704109280482.jpg" alt="لقطة للعروسين" class="pointer-events-none" onerror="this.parentElement.classList.add('img-missing')">
+                            </div>
+                            <!-- Slide 4 -->
+                            <div class="gallery-slide">
+                                <img src="Dhouha/1704109280818.jpg" alt="لقطة للعروسين" class="pointer-events-none" onerror="this.parentElement.classList.add('img-missing')">
+                            </div>
+                            <!-- Slide 5 -->
+                            <div class="gallery-slide">
+                                <img src="Dhouha/1704110020751.jpg" alt="لقطة للعروسين" class="pointer-events-none" onerror="this.parentElement.classList.add('img-missing')">
+                            </div>
+                            <!-- Slide 6 -->
+                            <div class="gallery-slide">
+                                <img src="Dhouha/1704110021193.jpg" alt="لقطة للعروسين" class="pointer-events-none" onerror="this.parentElement.classList.add('img-missing')">
+                            </div>
+                            <!-- Slide 7 -->
+                            <div class="gallery-slide">
+                                <img src="Dhouha/1704110021514.jpg" alt="لقطة للعروسين" class="pointer-events-none" onerror="this.parentElement.classList.add('img-missing')">
+                            </div>
+                            <!-- Slide 8 -->
+                            <div class="gallery-slide">
+                                <img src="Dhouha/1704110021635.jpg" alt="لقطة للعروسين" class="pointer-events-none" onerror="this.parentElement.classList.add('img-missing')">
+                            </div>
+                            <!-- Slide 9 -->
+                            <div class="gallery-slide">
+                                <img src="Dhouha/403642486_330774059798305_8906319166923596609_n.png" alt="لقطة للعروسين" class="pointer-events-none" onerror="this.parentElement.classList.add('img-missing')">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Arrow Button -->
+                    <button id="gallery-next" class="cursor-pointer" aria-label="الصورة التالية">
+                        <svg class="w-5 h-5 text-cocoa" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </button>
+                    
+                    <!-- Pagination Indicators Row -->
+                    <div class="flex flex-col items-center justify-center gap-2 mt-2">
+                        <!-- Dot Indicators Wrapper -->
+                        <div id="gallery-dots" class="flex items-center justify-center gap-1.5 bg-pink/10 px-3 py-1.5 rounded-full border border-rose-gold/15">
+                            <span class="gallery-dot w-6 h-2 bg-rose-gold rounded-full transition-all duration-300"></span>
+                            <span class="gallery-dot w-2 h-2 bg-rose-gold/30 rounded-full transition-all duration-300"></span>
+                            <span class="gallery-dot w-2 h-2 bg-rose-gold/30 rounded-full transition-all duration-300"></span>
+                            <span class="gallery-dot w-2 h-2 bg-rose-gold/30 rounded-full transition-all duration-300"></span>
+                            <span class="gallery-dot w-2 h-2 bg-rose-gold/30 rounded-full transition-all duration-300"></span>
+                            <span class="gallery-dot w-2 h-2 bg-rose-gold/30 rounded-full transition-all duration-300"></span>
+                            <span class="gallery-dot w-2 h-2 bg-rose-gold/30 rounded-full transition-all duration-300"></span>
+                            <span class="gallery-dot w-2 h-2 bg-rose-gold/30 rounded-full transition-all duration-300"></span>
+                            <span class="gallery-dot w-2 h-2 bg-rose-gold/30 rounded-full transition-all duration-300"></span>
+                        </div>
+                        <!-- Page number display -->
+                        <span id="gallery-index-text" class="font-tajawal text-xs text-rose-gold font-semibold mt-1">1 / 9</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SUPPLICATIONS SECTION (أدعية للعروسين) -->
+            <section class="py-12 px-6 scroll-reveal z-10 relative overflow-hidden">
+                <!-- Decorative deep-red florals in corners -->
+                <div class="absolute top-2 right-2 w-16 h-16 pointer-events-none opacity-85 text-rose-gold/60">
+                    <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M90 10 C 70 20, 50 40, 40 70 M60 20 C 50 25, 45 35, 48 40 M80 15 C 75 25, 65 30, 68 35" stroke-linecap="round"/>
+                        <path d="M40 70 C 35 75, 20 80, 10 90" stroke-width="1"/>
+                    </svg>
+                </div>
+                <div class="absolute top-2 left-2 w-16 h-16 pointer-events-none opacity-85 text-rose-gold/60 transform scale-x-[-1]">
+                    <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M90 10 C 70 20, 50 40, 40 70 M60 20 C 50 25, 45 35, 48 40 M80 15 C 75 25, 65 30, 68 35" stroke-linecap="round"/>
+                        <path d="M40 70 C 35 75, 20 80, 10 90" stroke-width="1"/>
+                    </svg>
+                </div>
+
+                <div class="text-center mb-8">
+                    <!-- Basmala calligraphic header -->
+                    <div class="font-amiri text-lg text-cocoa/80 mb-2">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+                    <h2 class="font-aref text-3xl text-cocoa font-bold">أدعية للعروسين</h2>
+                    <p class="text-[11px] text-rose-gold font-semibold uppercase tracking-wider mt-1">ندعو الله أن يبارك لهما</p>
+                    <div class="h-px w-24 bg-rose-gold/45 mx-auto mt-3"></div>
+                </div>
+
+                <div class="space-y-6">
+                    <!-- Card 1: Hadith -->
+                    <div class="bg-white/60 border border-rose-gold/20 rounded-2xl p-6 text-center shadow-sm relative overflow-hidden backdrop-blur-sm">
+                        <div class="absolute inset-2 border border-dashed border-rose-gold/15 rounded-xl pointer-events-none"></div>
+                        <p class="font-amiri text-lg sm:text-xl text-cocoa leading-relaxed px-4 py-2 select-none">
+                            "بَارَكَ اللَّهُ لَكَ، وَبَارَكَ عَلَيْكَ، وَجَمَعَ بَيْنَكُمَا فِي خَيْرٍ"
+                        </p>
+                        <p class="text-[10px] text-rose-gold font-tajawal mt-2">حديث شريف</p>
+                    </div>
+
+                    <!-- Card 2: Quranic Verse -->
+                    <div class="bg-white/60 border border-rose-gold/20 rounded-2xl p-6 text-center shadow-sm relative overflow-hidden backdrop-blur-sm">
+                        <div class="absolute inset-2 border border-dashed border-rose-gold/15 rounded-xl pointer-events-none"></div>
+                        <p class="font-amiri text-base sm:text-lg text-cocoa/90 leading-relaxed px-4 py-2 select-none">
+                            "رَبَّنَا هَبْ لَنَا مِنْ أَزْوَاجِنَا وَذُرِّيَّاتِنَا قُرَّةَ أَعْيُنٍ وَاجْعَلْنَا لِلْمُتَّقِينَ إِمَامًا"
+                        </p>
+                        <p class="text-[10px] text-rose-gold font-tajawal mt-2">سورة الفرقان - الآية 74</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- RSVP FORM SECTION (With AJAX post to FormSubmit to email directly) -->
+            <section id="rsvp-section" class="py-12 px-6 scroll-reveal z-10">
+                <div class="bg-white rounded-3xl border border-rose-gold/20 p-6 sm:p-8 shadow-md relative overflow-hidden">
+                    <div class="absolute -top-10 -right-10 w-32 h-32 bg-pink/5 rounded-full pointer-events-none"></div>
+                    <div class="absolute -bottom-10 -left-10 w-32 h-32 bg-beige-light/10 rounded-full pointer-events-none"></div>
+                    
+                    <div class="text-center mb-6">
+                        <span class="text-rose-gold text-sm block font-aref mb-1">تأكيد الحضور</span>
+                        <h3 class="font-aref text-2xl text-cocoa">سأحضر!</h3>
+                        <p class="text-xs text-cocoa/65 mt-1 leading-relaxed">
+                            يسعدنا حضوركم ومشاركتنا فرحتنا. الرجاء ملء البيانات لتصلنا مباشرة.
+                        </p>
+                    </div>
+
+                    <!-- Form -->
+                    <form id="rsvp-form" class="space-y-4">
+                        <!-- Hidden fields for FormSubmit setup -->
+                        <input type="text" name="_honey" style="display:none">
+                        <input type="hidden" name="_captcha" value="false">
+                        
+                        <!-- Guest Name -->
+                        <div>
+                            <label for="guest-name" class="block text-xs font-semibold text-cocoa mb-1.5">الاسم واللقب *</label>
+                            <input type="text" id="guest-name" name="name" required class="w-full bg-cream-soft/40 border border-rose-gold/20 focus:border-rose-gold focus:bg-white rounded-xl py-3 px-4 text-cocoa outline-none transition-all text-xs sm:text-sm" placeholder="الرجاء كتابة اسمك الكامل">
+                        </div>
+
+                        <!-- Attendance Status -->
+                        <div>
+                            <span class="block text-xs font-semibold text-cocoa mb-2">هل ستشرفنا بحضورك؟ *</span>
+                            <div class="grid grid-cols-2 gap-3">
+                                <!-- Attending option -->
+                                <label class="relative flex items-center justify-center border border-rose-gold/25 rounded-xl py-3 px-3 cursor-pointer select-none transition-all hover:bg-pink/5 checked-label">
+                                    <input type="radio" name="attendance" value="attending" checked class="hidden-radio sr-only">
+                                    <span class="text-xs font-semibold text-cocoa">بكل تأكيد، سأحضر!</span>
+                                </label>
+                                
+                                <!-- Not Attending option -->
+                                <label class="relative flex items-center justify-center border border-rose-gold/25 rounded-xl py-3 px-3 cursor-pointer select-none transition-all hover:bg-pink/5 checked-label">
+                                    <input type="radio" name="attendance" value="declined" class="hidden-radio sr-only">
+                                    <span class="text-xs font-semibold text-cocoa">أعتذر عن الحضور</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Number of Companions (Hidden if not attending) -->
+                        <div id="companions-wrapper">
+                            <label for="guest-count" class="block text-xs font-semibold text-cocoa mb-1.5">عدد المرافقين</label>
+                            <select id="guest-count" name="companions" class="w-full bg-cream-soft/40 border border-rose-gold/20 focus:border-rose-gold focus:bg-white rounded-xl py-3 px-4 text-cocoa outline-none transition-all text-xs sm:text-sm">
+                                <option value="1">شخص واحد (أنا فقط)</option>
+                                <option value="2">شخصين (+1 مرافق)</option>
+                                <option value="3">3 أشخاص (+2 مرافقين)</option>
+                                <option value="4">4 أشخاص (+3 مرافقين)</option>
+                                <option value="5">5 أشخاص (+4 مرافقين)</option>
+                            </select>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" id="submit-btn" class="w-full bg-pink text-cocoa hover:bg-pink-dark transition-colors py-3.5 px-6 rounded-xl font-aref text-lg font-bold border border-rose-gold/45 shadow-sm cursor-pointer flex items-center justify-center relative overflow-hidden">
+                            <span id="btn-text">إرسال تأكيد الحضور</span>
+                            <span id="btn-spinner" class="hidden w-5 h-5 border-2 border-cocoa border-t-transparent rounded-full animate-spin"></span>
+                        </button>
+                    </form>
+
+                    <!-- Success State Overlay -->
+                    <div id="rsvp-success" class="hidden absolute inset-0 bg-white z-20 flex flex-col items-center justify-center p-6 text-center animate-fade-in">
+                        <div class="w-16 h-16 bg-pink/10 text-cocoa border border-rose-gold rounded-full flex items-center justify-center mb-4 animate-scale-up">
+                            <svg class="w-8 h-8 text-cocoa" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+                            </svg>
+                        </div>
+                        <h4 class="font-aref text-xl text-cocoa mb-2">تم تسجيل حضوركم بنجاح!</h4>
+                        <p id="rsvp-success-message" class="text-xs sm:text-sm text-cocoa/85 leading-relaxed max-w-xs">
+                            يسعدنا جداً حضوركم ومشاركتكم فرحتنا الكبرى!
+                        </p>
+                    </div>
+                </div>
+            </section>و
+
+            <!-- FOOTER (Created with love by Marwa Rokbani + Social & Phone links) -->
+            <footer class="py-8 border border-rose-gold/20 bg-pink-light rounded-3xl text-center mt-10 w-full relative z-30 shadow-sm">
+                <p class="font-aref text-xs text-cocoa/75 mb-3">
+                    صُنع بكل حب من قِبل <span class="font-bold text-cocoa">مروى الركباني</span>
+                </p>
+                
+                <!-- Social media icons row -->
+                <div class="flex items-center justify-center gap-5 mb-4">
+                    <!-- LinkedIn -->
+                    <a href="https://www.linkedin.com/in/marwarokbani/" target="_blank" class="w-8 h-8 rounded-full border border-rose-gold/30 bg-white flex items-center justify-center text-cocoa hover:bg-pink/15 active:scale-95 transition-all" aria-label="LinkedIn Profile">
+                        <svg class="w-4 h-4 text-cocoa" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                        </svg>
+                    </a>
+                    
+                    <!-- Instagram -->
+                    <a href="https://www.instagram.com/marwa.rokbani/" target="_blank" class="w-8 h-8 rounded-full border border-rose-gold/30 bg-white flex items-center justify-center text-cocoa hover:bg-pink/15 active:scale-95 transition-all" aria-label="Instagram Profile">
+                        <svg class="w-4 h-4 text-cocoa" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                            <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zM17.5 6.5h.01"/>
+                        </svg>
+                    </a>
+                    
+                    <!-- Facebook -->
+                    <a href="https://www.facebook.com/" target="_blank" class="w-8 h-8 rounded-full border border-rose-gold/30 bg-white flex items-center justify-center text-cocoa hover:bg-pink/15 active:scale-95 transition-all" aria-label="Facebook Profile">
+                        <svg class="w-4 h-4 fill-current text-cocoa" viewBox="0 0 24 24">
+                            <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/>
+                        </svg>
+                    </a>
+                    
+                    <!-- Telephone direct call -->
+                    <a href="tel:+21696455475" class="w-8 h-8 rounded-full border border-rose-gold/30 bg-white flex items-center justify-center text-cocoa hover:bg-pink/15 active:scale-95 transition-all" aria-label="Call Mobile">
+                        <svg class="w-4 h-4 text-cocoa" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-2.824-1.802-5.14-4.118-6.942-6.94l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/>
+                        </svg>
+                    </a>
+                </div>
+                
+                <p class="text-[9px] text-cocoa/50 font-tajawal leading-none">
+                    © 2026. All rights reserved. ROKBANI Marwa.
+                </p>
+            </footer>
+
+        </div>
+    </main>
+
+    <script src="index.js"></script>
+</body>
+</html>
